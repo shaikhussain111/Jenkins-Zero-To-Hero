@@ -6,23 +6,25 @@ pipeline {
         docker { image 'maven:3.8.1-adoptopenjdk-11' }
       }
       steps {
-        // Display Maven version
-        sh 'mvn --version'
-        
-        // Create a HelloWorld.java file
-        sh '''
-          echo "public class HelloWorld {" > HelloWorld.java
-          echo "  public static void main(String[] args) {" >> HelloWorld.java
-          echo "    System.out.println(\\"Hello, World!\\");" >> HelloWorld.java
-          echo "  }" >> HelloWorld.java
-          echo "}" >> HelloWorld.java
-        '''
-        
-        // Compile HelloWorld.java
-        sh 'javac HelloWorld.java'
-        
-        // Run the HelloWorld class
-        sh 'java HelloWorld'
+        script {
+          // Display Maven version
+          sh 'mvn --version'
+          
+          // Create a HelloWorld.java file
+          sh '''
+            echo "public class HelloWorld {" > HelloWorld.java
+            echo "  public static void main(String[] args) {" >> HelloWorld.java
+            echo "    System.out.println(\\"Hello, World!\\");" >> HelloWorld.java
+            echo "  }" >> HelloWorld.java
+            echo "}" >> HelloWorld.java
+          '''
+          
+          // Compile HelloWorld.java
+          sh 'javac HelloWorld.java'
+          
+          // Run the HelloWorld class
+          sh 'java HelloWorld'
+        }
       }
     }
     stage('Front-end') {
