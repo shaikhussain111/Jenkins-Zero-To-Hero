@@ -6,55 +6,7 @@ pipeline {
         docker { image 'maven:3.8.1-adoptopenjdk-11' }
       }
       steps {
-        script {
-          // Display Maven version
-          sh 'mvn --version'
-          
-          // Create a simple Maven project structure
-          sh '''
-            mkdir -p src/main/java/com/example
-            mkdir -p src/test/java/com/example
-            echo "<project xmlns=\\"http://maven.apache.org/POM/4.0.0\\" xmlns:xsi=\\"http://www.w3.org/2001/XMLSchema-instance\\" xsi:schemaLocation=\\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\\">" > pom.xml
-            echo "  <modelVersion>4.0.0</modelVersion>" >> pom.xml
-            echo "  <groupId>com.example</groupId>" >> pom.xml
-            echo "  <artifactId>helloworld</artifactId>" >> pom.xml
-            echo "  <version>1.0-SNAPSHOT</version>" >> pom.xml
-            echo "  <properties>" >> pom.xml
-            echo "    <maven.compiler.source>11</maven.compiler.source>" >> pom.xml
-            echo "    <maven.compiler.target>11</maven.compiler.target>" >> pom.xml
-            echo "  </properties>" >> pom.xml
-            echo "  <build>" >> pom.xml
-            echo "    <plugins>" >> pom.xml
-            echo "      <plugin>" >> pom.xml
-            echo "        <groupId>org.apache.maven.plugins</groupId>" >> pom.xml
-            echo "        <artifactId>maven-compiler-plugin</artifactId>" >> pom.xml
-            echo "        <version>3.8.1</version>" >> pom.xml
-            echo "        <configuration>" >> pom.xml
-            echo "          <source>11</source>" >> pom.xml
-            echo "          <target>11</target>" >> pom.xml
-            echo "        </configuration>" >> pom.xml
-            echo "      </plugin>" >> pom.xml
-            echo "    </plugins>" >> pom.xml
-            echo "  </build>" >> pom.xml
-            echo "</project>" >> pom.xml
-          '''
-          
-          // Create a HelloWorld.java file
-          sh '''
-            echo "package com.example;" > src/main/java/com/example/HelloWorld.java
-            echo "public class HelloWorld {" >> src/main/java/com/example/HelloWorld.java
-            echo "  public static void main(String[] args) {" >> src/main/java/com/example/HelloWorld.java
-            echo "    System.out.println(\\"Hello, World!\\");" >> src/main/java/com/example/HelloWorld.java
-            echo "  }" >> src/main/java/com/example/HelloWorld.java
-            echo "}" >> src/main/java/com/example/HelloWorld.java
-          '''
-          
-          // Run Maven install
-          sh 'mvn clean install'
-          
-          // Run the HelloWorld class from the target directory
-          sh 'java -cp target/helloworld-1.0-SNAPSHOT.jar com.example.HelloWorld'
-        }
+        sh 'mvn --version'
       }
     }
     stage('Front-end') {
@@ -62,7 +14,6 @@ pipeline {
         docker { image 'node:16-alpine' }
       }
       steps {
-        // Display Node.js version
         sh 'node --version'
       }
     }
